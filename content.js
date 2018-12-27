@@ -3,7 +3,6 @@ $(function() {
   // This block of code appends a wrapper div to the dom which eventuall display our MDN dov preview. It also contains styling.
   // getElementsByTagName always returns an array
   const html = document.getElementsByTagName('body');
-  // console.log(html);
   // creat a wrapper div.
   const wrapper = document.createElement('div');
   wrapper.setAttribute('id', 'wtf-mdn-previewer');
@@ -73,7 +72,6 @@ $(function() {
 
     // join all the text back into a string, then split into an array separated by the opening p tag.
     let dataAsSecondArray = dataAsArray.join('').split('<p>');
-    console.log(dataAsSecondArray);
     // pop the first element off, which is more garbage text
     dataAsSecondArray.shift();
     // join text back into a string and then split along the closing p tag

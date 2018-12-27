@@ -1,8 +1,12 @@
 // This listener executes code for a few reasons: when the extension is first installed, when it's updated to a new version, or when chrome updates to a new version. In our case, the code doesn't do anything except console log the color red.
 chrome.runtime.onInstalled.addListener(function() {
   chrome.storage.sync.set({ color: 'red' }, function() {
-    console.log('The color is red.');
+    console.log('WTF MDN is running');
   });
+});
+
+chrome.omnibox.setDefaultSuggestion({
+  description: 'Search MDN Docs Library'
 });
 
 // This event listener is triggered when input is added to the omnibox in chrome
@@ -12,7 +16,6 @@ chrome.omnibox.onInputChanged.addListener(function(e) {
 
   // We are querying in order to extract the tab ID, which we need in order to use the sendMessage method.
   chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-    console.log(tabs);
     // first element in array object containing current tab information
     curTab = tabs[0];
     // stores MDN search API with concatenated input, forming the query string
