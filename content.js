@@ -13,9 +13,10 @@ $(function() {
   wrapper.style.height = 'auto';
   wrapper.style.top = '-1000px';
   wrapper.style.borderBottom = '5px solid black';
-  wrapper.style.transition = 'all .2s ease-in-out';
+  wrapper.style.transition = 'all .3s ease-in-out';
   wrapper.style.background = '#fff';
   wrapper.style.padding = '20px 20px 0';
+  wrapper.style.fontFamily = 'sans-serif';
   html[0].appendChild(wrapper);
 
   // This event listener is what is communicating to the background.js file. gotMessage is a callback function
@@ -62,6 +63,14 @@ $(function() {
     let dataAsArray = dataWithoutSpaces.split('wikiArticle');
     // remove the first element garbage
     dataAsArray.shift();
+
+    let dataAsDescription = dataAsArray.join('').split('<h2 id="Description">');
+    dataAsDescription.shift();
+    let dataAsFirstDescPTags = dataAsDescription.join('').split('<p>');
+    dataAsFirstDescPTags.shift();
+    let dataAsFirstDescPTag = dataAsFirstDescPTags.join('').split('</p>');
+    const descPTag = dataAsFirstDescPTag.shift();
+
     // join all the text back into a string, then split into an array separated by the opening p tag.
     let dataAsSecondArray = dataAsArray.join('').split('<p>');
     console.log(dataAsSecondArray);
@@ -74,11 +83,14 @@ $(function() {
     // This appends the parsed information to the wrapper div, creating our preview.
     $('#wtf-mdn-previewer').css({ top: '0px' }).append(`
         <div style='border-bottom: 1px solid #ccc; padding: 0 0 10px;'>
-            <h1 style='margin-top: 10px; margin-bottom: 10px;line-height: 20px; font-size: 22px;'>${
+            <h1 style='margin-top: 10px; font-family:sans-serif; margin-bottom: 10px;line-height: 20px; font-size: 18px;'>${
               result.title
             }</h1>
-            <p style='font-size: 14px; margin-bottom: 10px; padding: 0;'>${pTag}</p>
-            <a href=${result.url} target='_blank'>go to MDN</a>
+            <p style='font-size: 12px; font-family:sans-serif; margin-bottom: 0px; padding: 0;'>${pTag}</p>
+            <p style='font-size: 12px;font-family:sans-serif; margin-bottom: 10px; padding: 0;'>${descPTag}</p>
+            <a style='font-family:sans-serif;' href=${
+              result.url
+            } target='_blank'>go to MDN</a>
         </div>
       `);
   }
